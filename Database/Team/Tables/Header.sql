@@ -3,7 +3,7 @@ CREATE TABLE [team].[Header]
      -- Column Definitions
      [Id] INT IDENTITY(1,1) NOT NULL
     ,[Name] VARCHAR(200) NOT NULL
-    ,[Logo] VARCHAR(1000) NOT NULL
+    ,[Logo] VARCHAR(1000) NULL
     ,[VenueId] INT NULL
 
      -- Primary Key Constraint

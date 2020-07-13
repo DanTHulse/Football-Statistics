@@ -4,7 +4,7 @@ CREATE TABLE [competition].[Header]
      [Id] INT IDENTITY(1,1) NOT NULL
     ,[Name] NVARCHAR(200) NOT NULL
     ,[CountryId] INT NOT NULL
-    ,[Tier] TINYINT NOT NULL
+    ,[Tier] TINYINT NULL
     ,[IsLeagueCompetition] BIT NOT NULL
 
      -- Primary Key Constraint
