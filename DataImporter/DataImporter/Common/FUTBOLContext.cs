@@ -45,10 +45,7 @@ namespace LocalImporter
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=tcp:panopticon.database.windows.net,1433;Initial Catalog=FUTBOL;User ID=danhulse;Password=CloughtAz1;");
-            }
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
