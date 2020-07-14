@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Common.Dto;
 using DataImporter.Common.Dto.Matches;
 
 namespace DataImporter.Common.Dto.Players
 {
     [Table("Header", Schema = "player")]
-    public partial class PlayerHeader
+    public partial class PlayerHeader : BaseEntity
     {
         public PlayerHeader()
         {

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Common.Dto;
 using DataImporter.Common.Dto.Matches;
 
 namespace DataImporter.Common.Dto.Competitions
 {
     [Table("Edition", Schema = "competition")]
-    public partial class Edition
+    public partial class Edition : BaseEntity
     {
         public Edition()
         {

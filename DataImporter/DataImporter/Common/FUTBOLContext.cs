@@ -49,9 +49,6 @@ namespace LocalImporter
 
             modelBuilder.Entity<Competition>(entity =>
             {
-                entity.HasKey(e => new { e.EditionId, e.MatchId })
-                    .HasName("pk_match_competition");
-
                 entity.HasOne(d => d.CompetitionEdition)
                     .WithMany(p => p.MatchCompetition)
                     .HasForeignKey(d => d.EditionId)
@@ -59,8 +56,8 @@ namespace LocalImporter
                     .HasConstraintName("fk_match_competition_competition_edition");
 
                 entity.HasOne(d => d.MatchHeader)
-                    .WithMany(p => p.Competition)
-                    .HasForeignKey(d => d.MatchId)
+                    .WithOne(p => p.Competition)
+                    .HasForeignKey<MatchHeader>(d => d.Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_match_competition_match_header");
 
@@ -225,12 +222,9 @@ namespace LocalImporter
 
             modelBuilder.Entity<Venue>(entity =>
             {
-                entity.HasKey(e => new { e.MatchId, e.VenueId })
-                    .HasName("pk_match_venue");
-
                 entity.HasOne(d => d.MatchHeader)
-                    .WithMany(p => p.MatchVenue)
-                    .HasForeignKey(d => d.MatchId)
+                    .WithOne(p => p.MatchVenue)
+                    .HasForeignKey<MatchHeader>(d => d.Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_match_venue_match_header");
 

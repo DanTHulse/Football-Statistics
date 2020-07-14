@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Common.Dto;
 using DataImporter.Common.Dto.Base;
 using DataImporter.Common.Dto.Players;
 
 namespace DataImporter.Common.Dto.Matches
 {
     [Table("Goal", Schema = "match")]
-    public partial class Goal
+    public partial class Goal : BaseEntity
     {
         public Goal()
         {

@@ -1,12 +1,12 @@
 CREATE TABLE [match].[Competition]
 (
      -- Column Definitions
-     [EditionId] INT NOT NULL
-    ,[MatchId] INT NOT NULL
+     [MatchId] INT NOT NULL
+    ,[EditionId] INT NOT NULL
     ,[RoundId] INT NOT NULL
 
      -- Primary Key Constraint
-    ,CONSTRAINT [pk_match_competition] PRIMARY KEY CLUSTERED ([EditionId] ASC, [MatchId] ASC)
+    ,CONSTRAINT [pk_match_competition] PRIMARY KEY CLUSTERED ([MatchId] ASC)
 
      -- Foreign Key Constraints
     ,CONSTRAINT [fk_match_competition_competition_edition] FOREIGN KEY ([EditionId]) REFERENCES [competition].[Edition]([Id])

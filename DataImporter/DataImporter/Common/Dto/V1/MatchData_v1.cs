@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Common.Dto;
 
 namespace LocalImporter
 {
     [Table("MatchData", Schema = "football")]
-    public partial class MatchData_v1
+    public partial class MatchData_v1 : BaseEntity
     {
         [Key]
         public int MatchDataId { get; set; }

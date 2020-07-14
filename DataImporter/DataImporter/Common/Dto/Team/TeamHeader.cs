@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Common.Dto;
 using DataImporter.Common.Dto.Matches;
 using DataImporter.Common.Dto.Players;
 using DataImporter.Common.Dto.Venues;
@@ -8,7 +9,7 @@ using DataImporter.Common.Dto.Venues;
 namespace DataImporter.Common.Dto.Teams
 {
     [Table("Header", Schema = "team")]
-    public partial class TeamHeader
+    public partial class TeamHeader : BaseEntity
     {
         public TeamHeader()
         {

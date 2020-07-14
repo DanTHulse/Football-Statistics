@@ -1,19 +1,19 @@
-﻿using System.Linq;
+﻿using LocalImporter.Services.Interfaces;
 
 namespace LocalImporter
 {
     public class Application : IApplication
     {
-        private readonly FutbolContext _context;
+        private readonly IDataMigrationService _migrationService;
 
-        public Application(FutbolContext context)
+        public Application(IDataMigrationService migrationService)
         {
-            this._context = context;
+            this._migrationService = migrationService;
         }
 
         public void Run()
         {
-            var teams = this._context.Team_v1.FirstOrDefault();
+            this._migrationService.MigrateMatchData();
         }
     }
 }

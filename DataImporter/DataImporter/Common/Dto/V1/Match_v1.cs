@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Common.Dto;
 
 namespace LocalImporter
 {
     [Table("Match", Schema = "football")]
-    public partial class Match_v1
+    public partial class Match_v1 : BaseEntity
     {
         public Match_v1()
         {

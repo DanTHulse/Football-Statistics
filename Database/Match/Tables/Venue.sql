@@ -6,7 +6,7 @@ CREATE TABLE [match].[Venue]
     ,[VenueId] INT NOT NULL
 
      -- Primary Key Constraint
-    ,CONSTRAINT [pk_match_venue] PRIMARY KEY CLUSTERED ([MatchId] ASC, [VenueId] ASC)
+    ,CONSTRAINT [pk_match_venue] PRIMARY KEY CLUSTERED ([MatchId] ASC)
 
      -- Foreign Key Constraints
     ,CONSTRAINT [fk_match_venue_match_header] FOREIGN KEY ([MatchId]) REFERENCES [match].[Header]([Id])

@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Common.Dto;
 using DataImporter.Common.Dto.Matches;
 
 namespace DataImporter.Common.Dto.Base
 {
     [Table("Round", Schema = "dbo")]
-    public partial class Round
+    public partial class Round : BaseEntity
     {
         public Round()
         {

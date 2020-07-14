@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Common.Dto;
 using DataImporter.Common.Dto.Competitions;
 
 namespace DataImporter.Common.Dto.Base
 {
     [Table("Country", Schema = "dbo")]
-    public partial class Country
+    public partial class Country : BaseEntity
     {
         public Country()
         {

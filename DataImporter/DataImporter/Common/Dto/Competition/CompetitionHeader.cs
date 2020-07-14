@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Common.Dto;
 using DataImporter.Common.Dto.Base;
 
 namespace DataImporter.Common.Dto.Competitions
 {
     [Table("Header", Schema = "competition")]
-    public partial class CompetitionHeader
+    public partial class CompetitionHeader : BaseEntity
     {
         public CompetitionHeader()
         {

@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Common.Dto;
 using DataImporter.Common.Dto.Teams;
 
 namespace DataImporter.Common.Dto.Matches
 {
     [Table("Team", Schema = "match")]
-    public partial class MatchTeam
+    public partial class MatchTeam : BaseEntity
     {
         public MatchTeam()
         {

@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Common.Dto;
 using DataImporter.Common.Dto.Matches;
 using DataImporter.Common.Dto.Teams;
 
 namespace DataImporter.Common.Dto.Venues
 {
     [Table("Header", Schema = "venue")]
-    public partial class VenueHeader
+    public partial class VenueHeader : BaseEntity
     {
         public VenueHeader()
         {
