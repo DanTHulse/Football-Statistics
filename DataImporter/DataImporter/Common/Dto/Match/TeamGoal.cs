@@ -1,5 +1,8 @@
-﻿namespace DataImporter.Common.Dto.Matches
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DataImporter.Common.Dto.Matches
 {
+    [Table("TeamGoal", Schema = "match")]
     public partial class TeamGoal
     {
         public int MatchTeamId { get; set; }

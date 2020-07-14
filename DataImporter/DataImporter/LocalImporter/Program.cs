@@ -1,12 +1,16 @@
-﻿using System;
+﻿using LocalImporter.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LocalImporter
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("Hello World!");
+            var serviceProvider = DependencyRegistrar.Register();
+
+            var app = serviceProvider.GetService<IApplication>();
+            app.Run();
         }
     }
 }

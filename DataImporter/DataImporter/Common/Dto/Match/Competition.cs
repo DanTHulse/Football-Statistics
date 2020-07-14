@@ -1,8 +1,10 @@
-﻿using DataImporter.Common.Dto.Base;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using DataImporter.Common.Dto.Base;
 using DataImporter.Common.Dto.Competitions;
 
 namespace DataImporter.Common.Dto.Matches
 {
+    [Table("Competition", Schema = "match")]
     public partial class Competition
     {
         public int EditionId { get; set; }

@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using DataImporter.Common.Dto.Base;
 using DataImporter.Common.Dto.Players;
 
 namespace DataImporter.Common.Dto.Matches
 {
+    [Table("Goal", Schema = "match")]
     public partial class Goal
     {
         public Goal()
@@ -11,6 +14,7 @@ namespace DataImporter.Common.Dto.Matches
             TeamGoal = new HashSet<TeamGoal>();
         }
 
+        [Key]
         public int Id { get; set; }
         public int? ScoredBy { get; set; }
         public int? AssistedBy { get; set; }

@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LocalImporter
 {
-    public partial class FUTBOLContext : DbContext
+    public partial class FutbolContext : DbContext
     {
-        public FUTBOLContext()
+        public FutbolContext()
         {
         }
 
-        public FUTBOLContext(DbContextOptions<FUTBOLContext> options)
+        public FutbolContext(DbContextOptions<FutbolContext> options)
             : base(options)
         {
         }
@@ -43,37 +43,14 @@ namespace LocalImporter
         public virtual DbSet<TeamGoal> TeamGoal { get; set; }
         public virtual DbSet<Venue> MatchVenue { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Competition_v1>(entity =>
-            {
-                entity.ToTable("Competition", "football");
-
-                entity.Property(e => e.CompetitionName).IsRequired();
-
-                entity.Property(e => e.Country).HasMaxLength(100);
-            });
+            modelBuilder.Entity<Competition_v1>(entity => { });
 
             modelBuilder.Entity<Competition>(entity =>
             {
                 entity.HasKey(e => new { e.EditionId, e.MatchId })
                     .HasName("pk_match_competition");
-
-                entity.ToTable("Competition", "match");
-
-                entity.HasIndex(e => e.EditionId)
-                    .HasName("fki_match_competition_edition_id");
-
-                entity.HasIndex(e => e.MatchId)
-                    .HasName("fki_match_competition_match_id");
-
-                entity.HasIndex(e => e.RoundId)
-                    .HasName("fki_match_competition_round_id");
 
                 entity.HasOne(d => d.CompetitionEdition)
                     .WithMany(p => p.MatchCompetition)
@@ -94,29 +71,10 @@ namespace LocalImporter
                     .HasConstraintName("fk_match_competition_round");
             });
 
-            modelBuilder.Entity<Country>(entity =>
-            {
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(200);
-
-                entity.Property(e => e.ShortName)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
+            modelBuilder.Entity<Country>(entity => { });
 
             modelBuilder.Entity<Edition>(entity =>
             {
-                entity.ToTable("Edition", "competition");
-
-                entity.HasIndex(e => e.CompetitionId)
-                    .HasName("fki_competition_edition_competition_id");
-
-                entity.Property(e => e.EndDate).HasColumnType("date");
-
-                entity.Property(e => e.StartDate).HasColumnType("date");
-
                 entity.HasOne(d => d.CompetitionHeader)
                     .WithMany(p => p.CompetitionEdition)
                     .HasForeignKey(d => d.CompetitionId)
@@ -126,17 +84,6 @@ namespace LocalImporter
 
             modelBuilder.Entity<Goal>(entity =>
             {
-                entity.ToTable("Goal", "match");
-
-                entity.HasIndex(e => e.AssistedBy)
-                    .HasName("fki_match_goal_assisted_by");
-
-                entity.HasIndex(e => e.ScoredBy)
-                    .HasName("fki_match_goal_scored_by");
-
-                entity.HasIndex(e => e.SetPieceId)
-                    .HasName("fki_match_goal_set_piece_id");
-
                 entity.HasOne(d => d.AssistedByPlayer)
                     .WithMany(p => p.GoalAssistedBy)
                     .HasForeignKey(d => d.AssistedBy)
@@ -155,15 +102,6 @@ namespace LocalImporter
 
             modelBuilder.Entity<CompetitionHeader>(entity =>
             {
-                entity.ToTable("Header", "competition");
-
-                entity.HasIndex(e => e.CountryId)
-                    .HasName("fki_competition_header_country");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(200);
-
                 entity.HasOne(d => d.Country)
                     .WithMany(p => p.CompetitionHeader)
                     .HasForeignKey(d => d.CountryId)
@@ -171,80 +109,22 @@ namespace LocalImporter
                     .HasConstraintName("fk_competition_header_country");
             });
 
-            modelBuilder.Entity<MatchHeader>(entity =>
-            {
-                entity.ToTable("Header", "match");
+            modelBuilder.Entity<MatchHeader>(entity => { });
 
-                entity.Property(e => e.MatchDate).HasColumnType("datetime");
-            });
-
-            modelBuilder.Entity<PlayerHeader>(entity =>
-            {
-                entity.ToTable("Header", "player");
-
-                entity.Property(e => e.DateOfBirth).HasColumnType("date");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(200);
-            });
+            modelBuilder.Entity<PlayerHeader>(entity => { });
 
             modelBuilder.Entity<TeamHeader>(entity =>
             {
-                entity.ToTable("Header", "team");
-
-                entity.HasIndex(e => e.VenueId)
-                    .HasName("fki_team_header_venue_id");
-
-                entity.Property(e => e.Logo)
-                    .HasMaxLength(1000)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
-
                 entity.HasOne(d => d.VenueHeader)
                     .WithMany(p => p.TeamHeader)
                     .HasForeignKey(d => d.VenueId)
                     .HasConstraintName("fk_team_header_venue_header");
             });
 
-            modelBuilder.Entity<VenueHeader>(entity =>
-            {
-                entity.ToTable("Header", "venue");
-
-                entity.Property(e => e.Latitude).HasColumnType("decimal(8, 8)");
-
-                entity.Property(e => e.Longitude).HasColumnType("decimal(8, 8)");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
-            });
+            modelBuilder.Entity<VenueHeader>(entity => { });
 
             modelBuilder.Entity<Match_v1>(entity =>
             {
-                entity.ToTable("Match", "football");
-
-                entity.HasIndex(e => new { e.CompetitionId, e.MatchDate, e.HomeTeamId, e.AwayTeamId, e.MatchUid, e.SeasonId })
-                    .HasName("IX_Match_SeasonId");
-
-                entity.HasIndex(e => new { e.CompetitionId, e.SeasonId, e.MatchDate, e.AwayTeamId, e.MatchUid, e.HomeTeamId })
-                    .HasName("IX_Match_HomeTeamId");
-
-                entity.HasIndex(e => new { e.CompetitionId, e.SeasonId, e.MatchDate, e.HomeTeamId, e.MatchUid, e.AwayTeamId })
-                    .HasName("IX_Match_AwayTeamId");
-
-                entity.HasIndex(e => new { e.SeasonId, e.MatchDate, e.HomeTeamId, e.AwayTeamId, e.MatchUid, e.CompetitionId })
-                    .HasName("IX_Match_CompetitionId");
-
-                entity.Property(e => e.MatchDate).HasColumnType("datetime");
-
-                entity.Property(e => e.MatchUid).HasMaxLength(100);
-
                 entity.HasOne(d => d.AwayTeam)
                     .WithMany(p => p.MatchAwayTeam)
                     .HasForeignKey(d => d.AwayTeamId)
@@ -272,27 +152,6 @@ namespace LocalImporter
 
             modelBuilder.Entity<MatchData_v1>(entity =>
             {
-                entity.ToTable("MatchData", "football");
-
-                entity.Property(e => e.FtawayGoals).HasColumnName("FTAwayGoals");
-
-                entity.Property(e => e.FthomeGoals).HasColumnName("FTHomeGoals");
-
-                entity.Property(e => e.Ftresult)
-                    .IsRequired()
-                    .HasColumnName("FTResult")
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.HtawayGoals).HasColumnName("HTAwayGoals");
-
-                entity.Property(e => e.HthomeGoals).HasColumnName("HTHomeGoals");
-
-                entity.Property(e => e.Htresult)
-                    .HasColumnName("HTResult")
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
-
                 entity.HasOne(d => d.Match)
                     .WithMany(p => p.MatchData)
                     .HasForeignKey(d => d.MatchId)
@@ -300,56 +159,18 @@ namespace LocalImporter
                     .HasConstraintName("FK_Match_MatchId");
             });
 
-            modelBuilder.Entity<Position>(entity =>
-            {
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
+            modelBuilder.Entity<Position>(entity => { });
 
-            modelBuilder.Entity<Round>(entity =>
-            {
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
+            modelBuilder.Entity<Round>(entity => { });
 
-            modelBuilder.Entity<Season_v1>(entity =>
-            {
-                entity.ToTable("Season", "football");
+            modelBuilder.Entity<Season_v1>(entity => { });
 
-                entity.Property(e => e.SeasonPeriod)
-                    .IsRequired()
-                    .HasMaxLength(10);
-            });
+            modelBuilder.Entity<SetPiece>(entity => { });
 
-            modelBuilder.Entity<SetPiece>(entity =>
-            {
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<Team_v1>(entity =>
-            {
-                entity.ToTable("Team", "football");
-
-                entity.Property(e => e.TeamName).IsRequired();
-            });
+            modelBuilder.Entity<Team_v1>(entity => { });
 
             modelBuilder.Entity<MatchTeam>(entity =>
             {
-                entity.ToTable("Team", "match");
-
-                entity.HasIndex(e => e.MatchId)
-                    .HasName("fki_match_team_match_id");
-
-                entity.HasIndex(e => e.TeamId)
-                    .HasName("fki_match_team_team_id");
-
                 entity.HasOne(d => d.MatchHeader)
                     .WithMany(p => p.MatchTeam)
                     .HasForeignKey(d => d.MatchId)
@@ -365,17 +186,6 @@ namespace LocalImporter
 
             modelBuilder.Entity<PlayerTeam>(entity =>
             {
-                entity.ToTable("Team", "player");
-
-                entity.HasIndex(e => e.PlayerId)
-                    .HasName("fki_player_team_player_id");
-
-                entity.HasIndex(e => e.PositionId)
-                    .HasName("fki_player_team_position_id");
-
-                entity.HasIndex(e => e.TeamId)
-                    .HasName("fki_player_team_team_id");
-
                 entity.HasOne(d => d.PlayerHeader)
                     .WithMany(p => p.Team)
                     .HasForeignKey(d => d.PlayerId)
@@ -400,14 +210,6 @@ namespace LocalImporter
                 entity.HasKey(e => new { e.MatchTeamId, e.GoalId })
                     .HasName("pk_match_team_goal");
 
-                entity.ToTable("TeamGoal", "match");
-
-                entity.HasIndex(e => e.GoalId)
-                    .HasName("fki_match_team_goal_goal_id");
-
-                entity.HasIndex(e => e.MatchTeamId)
-                    .HasName("fki_match_team_goal_match_team_id");
-
                 entity.HasOne(d => d.Goal)
                     .WithMany(p => p.TeamGoal)
                     .HasForeignKey(d => d.GoalId)
@@ -425,14 +227,6 @@ namespace LocalImporter
             {
                 entity.HasKey(e => new { e.MatchId, e.VenueId })
                     .HasName("pk_match_venue");
-
-                entity.ToTable("Venue", "match");
-
-                entity.HasIndex(e => e.MatchId)
-                    .HasName("fki_match_venue_match_id");
-
-                entity.HasIndex(e => e.VenueId)
-                    .HasName("fki_match_venue_venue_id");
 
                 entity.HasOne(d => d.MatchHeader)
                     .WithMany(p => p.MatchVenue)

@@ -1,15 +1,23 @@
-﻿namespace LocalImporter
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace LocalImporter
 {
+    [Table("MatchData", Schema = "football")]
     public partial class MatchData_v1
     {
+        [Key]
         public int MatchDataId { get; set; }
         public int MatchId { get; set; }
-        public int? FthomeGoals { get; set; }
-        public int? FtawayGoals { get; set; }
-        public string Ftresult { get; set; }
-        public int? HthomeGoals { get; set; }
-        public int? HtawayGoals { get; set; }
-        public string Htresult { get; set; }
+        public int? FTHomeGoals { get; set; }
+        public int? FTAwayGoals { get; set; }
+        [Required]
+        [MaxLength(1)]
+        public string FTResult { get; set; }
+        public int? HTHomeGoals { get; set; }
+        public int? HTAwayGoals { get; set; }
+        [MaxLength(1)]
+        public string HTResult { get; set; }
         public int? HomeShots { get; set; }
         public int? AwayShots { get; set; }
         public int? HomeShotsOnTarget { get; set; }

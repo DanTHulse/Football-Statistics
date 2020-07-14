@@ -1,7 +1,9 @@
-﻿using DataImporter.Common.Dto.Venues;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using DataImporter.Common.Dto.Venues;
 
 namespace DataImporter.Common.Dto.Matches
 {
+    [Table("Venue", Schema = "match")]
     public partial class Venue
     {
         public int MatchId { get; set; }
