@@ -19,13 +19,6 @@ namespace LocalImporter
         {
         }
 
-        public virtual DbSet<Competition_v1> Competition_v1 { get; set; }
-        public virtual DbSet<Match_v1> Match_v1 { get; set; }
-        public virtual DbSet<MatchData_v1> MatchData_v1 { get; set; }
-        public virtual DbSet<Team_v1> Team_v1 { get; set; }
-        public virtual DbSet<Season_v1> Season_v1 { get; set; }
-
-
         public virtual DbSet<Competition> Competition { get; set; }
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Edition> CompetitionEdition { get; set; }
@@ -45,8 +38,6 @@ namespace LocalImporter
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Competition_v1>(entity => { });
-
             modelBuilder.Entity<Competition>(entity =>
             {
                 entity.HasOne(d => d.CompetitionEdition)
@@ -81,6 +72,9 @@ namespace LocalImporter
 
             modelBuilder.Entity<Goal>(entity =>
             {
+                entity.Property(a => a.Id)
+                    .UseIdentityColumn(1, 1);
+
                 entity.HasOne(d => d.AssistedByPlayer)
                     .WithMany(p => p.GoalAssistedBy)
                     .HasForeignKey(d => d.AssistedBy)
@@ -95,6 +89,12 @@ namespace LocalImporter
                     .WithMany(p => p.MatchGoal)
                     .HasForeignKey(d => d.SetPieceId)
                     .HasConstraintName("fk_match_goal_set_piece");
+
+                entity.HasOne(d => d.TeamGoal)
+                    .WithOne(p => p.Goal)
+                    .HasForeignKey<TeamGoal>(d => d.GoalId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_match_team_goal_match_goal");
             });
 
             modelBuilder.Entity<CompetitionHeader>(entity =>
@@ -120,51 +120,11 @@ namespace LocalImporter
 
             modelBuilder.Entity<VenueHeader>(entity => { });
 
-            modelBuilder.Entity<Match_v1>(entity =>
-            {
-                entity.HasOne(d => d.AwayTeam)
-                    .WithMany(p => p.MatchAwayTeam)
-                    .HasForeignKey(d => d.AwayTeamId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Team_AwayTeamId");
-
-                entity.HasOne(d => d.Competition)
-                    .WithMany(p => p.Match)
-                    .HasForeignKey(d => d.CompetitionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Competition_CompetitionId");
-
-                entity.HasOne(d => d.HomeTeam)
-                    .WithMany(p => p.MatchHomeTeam)
-                    .HasForeignKey(d => d.HomeTeamId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Team_HomeTeamId");
-
-                entity.HasOne(d => d.Season)
-                    .WithMany(p => p.Match)
-                    .HasForeignKey(d => d.SeasonId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Season_SeasonId");
-            });
-
-            modelBuilder.Entity<MatchData_v1>(entity =>
-            {
-                entity.HasOne(d => d.Match)
-                    .WithMany(p => p.MatchData)
-                    .HasForeignKey(d => d.MatchId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Match_MatchId");
-            });
-
             modelBuilder.Entity<Position>(entity => { });
 
             modelBuilder.Entity<Round>(entity => { });
 
-            modelBuilder.Entity<Season_v1>(entity => { });
-
             modelBuilder.Entity<SetPiece>(entity => { });
-
-            modelBuilder.Entity<Team_v1>(entity => { });
 
             modelBuilder.Entity<MatchTeam>(entity =>
             {
@@ -179,6 +139,12 @@ namespace LocalImporter
                     .HasForeignKey(d => d.TeamId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_match_team_team_header");
+
+                entity.HasOne(d => d.MatchData)
+                    .WithMany(p => p.MatchTeams)
+                    .HasForeignKey(d => d.MatchDataId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_match_team_match_data");
             });
 
             modelBuilder.Entity<PlayerTeam>(entity =>
@@ -206,12 +172,6 @@ namespace LocalImporter
             {
                 entity.HasKey(e => new { e.MatchTeamId, e.GoalId })
                     .HasName("pk_match_team_goal");
-
-                entity.HasOne(d => d.Goal)
-                    .WithMany(p => p.TeamGoal)
-                    .HasForeignKey(d => d.GoalId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_match_team_goal_match_goal");
 
                 entity.HasOne(d => d.MatchTeam)
                     .WithMany(p => p.TeamGoal)

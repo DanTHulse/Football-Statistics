@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Common.Dto;
 using DataImporter.Common.Dto.Teams;
+using LocalImporter;
 
 namespace DataImporter.Common.Dto.Matches
 {
@@ -23,9 +24,11 @@ namespace DataImporter.Common.Dto.Matches
         public int? YellowCards { get; set; }
         public int? RedCards { get; set; }
         public bool IsHomeTeam { get; set; }
+        public int MatchDataId { get; set; }
 
         public virtual MatchHeader MatchHeader { get; set; }
         public virtual TeamHeader TeamHeader { get; set; }
         public virtual ICollection<TeamGoal> TeamGoal { get; set; }
+        public virtual MatchData_v1 MatchData { get; set; }
     }
 }

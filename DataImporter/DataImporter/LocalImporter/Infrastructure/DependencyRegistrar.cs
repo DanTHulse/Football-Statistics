@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using LocalImporter.Infrastructure.Interfaces;
+using DataImporter.Common.Dto.Matches;
+using LocalImporter.Repositories;
+using LocalImporter.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,8 +32,9 @@ namespace LocalImporter.Infrastructure
             services.AddDbContext<FutbolContext>(options => options.UseSqlServer(settings.ConnectionStrings.DbConnection));
 
             services.AddSingleton<IApplication, Application>();
-            services.Scan(s => s.FromAssemblyOf<IRepository>().AddClasses(c => c.AssignableTo<IRepository>()).AsImplementedInterfaces().WithTransientLifetime());
-            services.Scan(s => s.FromAssemblyOf<IService>().AddClasses(c => c.AssignableTo<IService>()).AsImplementedInterfaces().WithTransientLifetime());
+            services.AddSingleton<IRepository<MatchTeam>, Repository<MatchTeam>>();
+            services.AddSingleton<IRepository<TeamGoal>, Repository<TeamGoal>>();
+            services.AddSingleton<IRepository<Goal>, Repository<Goal>>();
 
             var serviceProvider = services.BuildServiceProvider();
 

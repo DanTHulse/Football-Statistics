@@ -22,6 +22,5 @@ namespace DataImporter.Common.Dto.Matches
         public virtual Competition Competition { get; set; }
         public virtual Venue MatchVenue { get; set; }
         public virtual ICollection<MatchTeam> MatchTeam { get; set; }
-
     }
 }

@@ -25,6 +25,16 @@ namespace LocalImporter.Repositories
             return this._entities.AsEnumerable();
         }
 
+        public IEnumerable<S> Retrieve<S>(Expression<Func<T, S>> selector)
+        {
+            return this._entities.Select(selector);
+        }
+
+        public IEnumerable<S> Retrieve<S, U>(Expression<Func<T, S>> selector, Expression<Func<T, U>> order)
+        {
+            return this._entities.OrderBy(order).Select(selector);
+        }
+
         public IEnumerable<S> Retrieve<S>(Expression<Func<T, bool>> filter, Expression<Func<T, S>> selector)
         {
             return this._entities.Where(filter).Distinct().Select(selector);
@@ -37,6 +47,15 @@ namespace LocalImporter.Repositories
         }
 
         public void InsertRange(IList<T> range)
+        {
+            this._context.BulkInsert(range, new BulkConfig
+            {
+                SetOutputIdentity = true,
+                PreserveInsertOrder = true,
+            });
+        }
+
+        public void InsertRangeV2(IList<T> range)
         {
             this._context.BulkInsert(range);
         }
