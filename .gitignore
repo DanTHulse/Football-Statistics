@@ -133,3 +133,4 @@ $RECYCLE.BIN/
 _NCrunch*
 /DataImporter/DataImporter/.vs/DataImporter/DesignTimeBuild
 /DataImporter/DataImporter/LocalImporter/appsettings.json
+/FutbolApi/FutbolApi/appsettings.json
