@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Common.Dto;
-using DataImporter.Common.Dto.Matches;
-using DataImporter.Common.Dto.Teams;
+using Common.Dto.Base;
+using Common.Dto.Matches;
+using Common.Dto.Teams;
 
-namespace DataImporter.Common.Dto.Venues
+namespace Common.Dto.Venues
 {
     [Table("Header", Schema = "venue")]
-    public partial class VenueHeader : BaseEntity
+    public partial class VenueHeader : NamedEntity
     {
         public VenueHeader()
         {
@@ -16,11 +15,6 @@ namespace DataImporter.Common.Dto.Venues
             MatchVenue = new HashSet<Venue>();
         }
 
-        [Key]
-        public int Id { get; set; }
-        [Required]
-        [MaxLength(200)]
-        public string Name { get; set; }
         [Column(TypeName = "decimal(8, 8)")]
         public decimal Latitude { get; set; }
         [Column(TypeName = "decimal(8, 8)")]

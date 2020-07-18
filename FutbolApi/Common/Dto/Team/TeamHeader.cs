@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Common.Dto;
-using DataImporter.Common.Dto.Matches;
-using DataImporter.Common.Dto.Players;
-using DataImporter.Common.Dto.Venues;
+using Common.Dto.Base;
+using Common.Dto.Matches;
+using Common.Dto.Players;
+using Common.Dto.Venues;
 
-namespace DataImporter.Common.Dto.Teams
+namespace Common.Dto.Teams
 {
     [Table("Header", Schema = "team")]
-    public partial class TeamHeader : BaseEntity
+    public partial class TeamHeader : NamedEntity
     {
         public TeamHeader()
         {
@@ -17,11 +17,6 @@ namespace DataImporter.Common.Dto.Teams
             PlayerTeam = new HashSet<PlayerTeam>();
         }
 
-        [Key]
-        public int Id { get; set; }
-        [Required]
-        [MaxLength(200)]
-        public string Name { get; set; }
         [MaxLength(1000)]
         public string Logo { get; set; }
         public int? VenueId { get; set; }

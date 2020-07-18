@@ -1,16 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Common.Dto;
-using DataImporter.Common.Dto.Base;
-using DataImporter.Common.Dto.Teams;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Common.Dto.Base;
+using Common.Dto.Lookups;
+using Common.Dto.Teams;
 
-namespace DataImporter.Common.Dto.Players
+namespace Common.Dto.Players
 {
     [Table("Team", Schema = "player")]
     public partial class PlayerTeam : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
+        public PlayerTeam()
+        {
+        }
+
         public int PlayerId { get; set; }
         public int TeamId { get; set; }
         public int TeamNumber { get; set; }

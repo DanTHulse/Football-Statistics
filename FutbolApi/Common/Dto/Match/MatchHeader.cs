@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Common.Dto;
+using Common.Dto.Base;
 
-namespace DataImporter.Common.Dto.Matches
+namespace Common.Dto.Matches
 {
     [Table("Header", Schema = "match")]
-    public partial class MatchHeader : BaseEntity
+    public partial class MatchHeader : NamedEntity
     {
         public MatchHeader()
         {
             MatchTeam = new HashSet<MatchTeam>();
         }
 
-        [Key]
-        public int Id { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime? MatchDate { get; set; }
 

@@ -1,9 +1,9 @@
-﻿using DataImporter.Common.Dto.Base;
-using DataImporter.Common.Dto.Competitions;
-using DataImporter.Common.Dto.Matches;
-using DataImporter.Common.Dto.Players;
-using DataImporter.Common.Dto.Teams;
-using DataImporter.Common.Dto.Venues;
+﻿using Common.Dto.Competitions;
+using Common.Dto.Lookups;
+using Common.Dto.Matches;
+using Common.Dto.Players;
+using Common.Dto.Teams;
+using Common.Dto.Venues;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocalImporter
@@ -164,9 +164,6 @@ namespace LocalImporter
 
             modelBuilder.Entity<TeamGoal>(entity =>
             {
-                entity.HasKey(e => new { e.MatchTeamId, e.GoalId })
-                    .HasName("pk_match_team_goal");
-
                 entity.HasOne(d => d.MatchTeam)
                     .WithMany(p => p.TeamGoal)
                     .HasForeignKey(d => d.MatchTeamId)

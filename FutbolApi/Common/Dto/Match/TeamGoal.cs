@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using Common.Dto;
+using Common.Dto.Base;
 
-namespace DataImporter.Common.Dto.Matches
+namespace Common.Dto.Matches
 {
     [Table("TeamGoal", Schema = "match")]
     public partial class TeamGoal : BaseEntity

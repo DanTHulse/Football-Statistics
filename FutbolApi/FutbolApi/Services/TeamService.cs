@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using DataImporter.Common.Dto.Teams;
+using Common.Dto.Teams;
 using FutbolApi.Services.Interfaces;
 using FutbolApi.ViewModels;
 using LocalImporter.Repositories.Interfaces;

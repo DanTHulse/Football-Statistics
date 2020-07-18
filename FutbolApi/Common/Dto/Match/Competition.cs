@@ -1,16 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Common.Dto;
-using DataImporter.Common.Dto.Base;
-using DataImporter.Common.Dto.Competitions;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Common.Dto.Base;
+using Common.Dto.Competitions;
+using Common.Dto.Lookups;
 
-namespace DataImporter.Common.Dto.Matches
+namespace Common.Dto.Matches
 {
     [Table("Competition", Schema = "match")]
     public partial class Competition : BaseEntity
     {
-        [Key]
-        public int MatchId { get; set; }
         public int EditionId { get; set; }
         public int RoundId { get; set; }
 

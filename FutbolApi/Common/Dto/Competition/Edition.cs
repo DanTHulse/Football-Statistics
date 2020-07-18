@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Common.Dto;
-using DataImporter.Common.Dto.Matches;
+using Common.Dto.Base;
+using Common.Dto.Matches;
 
-namespace DataImporter.Common.Dto.Competitions
+namespace Common.Dto.Competitions
 {
     [Table("Edition", Schema = "competition")]
     public partial class Edition : BaseEntity
@@ -15,8 +15,6 @@ namespace DataImporter.Common.Dto.Competitions
             MatchCompetition = new HashSet<Competition>();
         }
 
-        [Key]
-        public int Id { get; set; }
         public int CompetitionId { get; set; }
         [DataType(DataType.Date)]
         public DateTime? StartDate { get; set; }

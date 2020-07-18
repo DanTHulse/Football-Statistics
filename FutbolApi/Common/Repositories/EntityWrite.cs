@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Common.Dto;
+using Common.Dto.Base;
 using EFCore.BulkExtensions;
 using LocalImporter.Repositories.Interfaces;
 

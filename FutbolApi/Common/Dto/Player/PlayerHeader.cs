@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Common.Dto;
-using DataImporter.Common.Dto.Matches;
+using Common.Dto.Base;
+using Common.Dto.Matches;
 
-namespace DataImporter.Common.Dto.Players
+namespace Common.Dto.Players
 {
     [Table("Header", Schema = "player")]
-    public partial class PlayerHeader : BaseEntity
+    public partial class PlayerHeader : NamedEntity
     {
         public PlayerHeader()
         {
@@ -17,11 +17,6 @@ namespace DataImporter.Common.Dto.Players
             Team = new HashSet<PlayerTeam>();
         }
 
-        [Key]
-        public int Id { get; set; }
-        [Required]
-        [MaxLength(200)]
-        public string Name { get; set; }
         [DataType(DataType.Date)]
         public DateTime? DateOfBirth { get; set; }
 

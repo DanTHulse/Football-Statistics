@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Common.Dto;
+using Common.Dto.Base;
 using LocalImporter.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
